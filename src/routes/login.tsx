@@ -1,13 +1,8 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { BarChart3, Bot, ShieldCheck, Sparkles, Utensils } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import dragon from "@/assets/dish-dragon-roll.jpg";
-import rainbow from "@/assets/dish-rainbow-roll.jpg";
-import bento from "@/assets/dish-bento.jpg";
 import logo from "@/assets/mitsuki-logo.png";
-import { AiBackground } from "@/components/ai-background";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -20,7 +15,7 @@ export const Route = createFileRoute("/login")({
       {
         name: "description",
         content:
-          "Accédez à MITSUKI AI : couche intelligente connectée à Odoo pour piloter achats, stocks, production, finance, satisfaction et communication des restaurants Mitsuki.",
+          "Accédez à MITSUKI AI : couche intelligente connectée à Odoo pour piloter les restaurants Mitsuki.",
       },
       { property: "og:title", content: "Connexion — MITSUKI AI" },
       {
@@ -33,29 +28,6 @@ export const Route = createFileRoute("/login")({
   }),
   component: LoginPage,
 });
-
-const highlights = [
-  {
-    icon: BarChart3,
-    title: "Pilotage unifié",
-    text: "Achats, stocks, production et finance consolidés depuis Odoo.",
-  },
-  {
-    icon: Bot,
-    title: "Assistant IA de direction",
-    text: "Analyses, risques précis par produit et étapes d'action recommandées.",
-  },
-  {
-    icon: Sparkles,
-    title: "Community manager",
-    text: "Idées de contenus, génération et calendrier éditorial validés par vous.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Validation humaine",
-    text: "L'IA analyse et recommande, vous validez, le système exécute.",
-  },
-];
 
 function LoginPage() {
   const router = useRouter();
@@ -75,110 +47,78 @@ function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
-      <AiBackground />
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-12">
+      {/* Formes subtiles inspirées des couleurs du logo */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-40 -left-40 size-[520px] rounded-full bg-primary/[0.08] blur-[120px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-32 -right-32 size-[480px] rounded-full bg-pink/[0.07] blur-[110px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/2 left-1/2 size-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange/[0.05] blur-[100px]"
+      />
 
-      <div className="mx-auto grid min-h-screen w-full max-w-6xl items-center gap-10 px-4 py-10 lg:grid-cols-[1.1fr_minmax(0,380px)] lg:gap-16 lg:py-16">
-        {/* ------------------------- Présentation projet ------------------------- */}
-        <section className="order-2 lg:order-1">
-          <div className="flex items-center gap-3">
+      <Card className="relative z-10 w-full max-w-[420px] border bg-card/85 shadow-[var(--shadow-soft)] backdrop-blur-xl">
+        <CardContent className="flex flex-col items-center px-8 pb-10 pt-10">
+          <div className="relative">
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 via-petrol/10 to-orange/10 blur-xl" />
             <img
               src={logo}
               alt="Logo Mitsuki"
-              width={512}
-              height={512}
-              className="icon-float size-14 rounded-2xl object-contain"
+              width={80}
+              height={80}
+              className="relative size-16 rounded-2xl object-contain"
             />
-            <div>
-              <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">MITSUKI AI</h1>
-              <p className="text-sm text-muted-foreground">
-                Intelligence opérationnelle &amp; pilotage — restauration asiatique
-              </p>
-            </div>
           </div>
 
-          <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            La couche intelligente connectée à Odoo pour les restaurants Mitsuki d'Arribate Center,
-            Gare Agdal et Carrousel : détection des ruptures, écarts de production, dérives de Food
-            Cost, retours clients et opportunités de contenu — avec des recommandations traçables.
+          <h1 className="mt-6 text-2xl font-semibold tracking-tight">MITSUKI AI</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Espace professionnel
           </p>
 
-          <div className="mt-7 grid gap-3 sm:grid-cols-2">
-            {highlights.map((h) => (
-              <div
-                key={h.title}
-                className="lift-card flex gap-3 rounded-2xl border bg-card/70 p-3.5 backdrop-blur"
-              >
-                <span className="icon-chip size-9 shrink-0">
-                  <h.icon className="size-4" />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold">{h.title}</p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">{h.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-7 grid grid-cols-3 gap-3">
-            {[
-              { src: dragon, alt: "Dragon Roll signature Mitsuki" },
-              { src: rainbow, alt: "Rainbow Roll Mitsuki" },
-              { src: bento, alt: "Bento du midi Mitsuki" },
-            ].map((i) => (
-              <img
-                key={i.alt}
-                src={i.src}
-                alt={i.alt}
-                loading="lazy"
-                className="h-24 w-full rounded-2xl border object-cover shadow-[var(--shadow-card)] sm:h-32"
+          <form onSubmit={submit} className="mt-8 w-full space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                autoComplete="email"
+                placeholder="vous@mitsuki.ma"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
-            ))}
-          </div>
-        </section>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Mot de passe</Label>
+              <Input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-primary to-petrol text-primary-foreground shadow-[var(--shadow-soft)] hover:brightness-105"
+              disabled={loading}
+            >
+              {loading ? "Connexion…" : "Se connecter"}
+            </Button>
+          </form>
 
-        {/* ------------------------------ Formulaire ----------------------------- */}
-        <section className="order-1 w-full lg:order-2">
-          <Card className="shadow-[var(--shadow-soft)] backdrop-blur">
-            <CardContent className="pt-2">
-              <div className="flex items-center gap-2 text-sm font-semibold">
-                <Utensils className="size-4 text-primary" /> Connexion à votre espace
-              </div>
-              <form onSubmit={submit} className="mt-5 space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    autoComplete="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password">Mot de passe</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    autoComplete="current-password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "Connexion…" : "Se connecter"}
-                </Button>
-              </form>
-              <p className="mt-4 rounded-xl bg-muted px-3 py-2 text-xs text-muted-foreground">
-                Compte de démonstration : <strong>direction@mitsuki.ma</strong> — rôle Direction.
-                Prototype alimenté par des données Odoo simulées.
-              </p>
-            </CardContent>
-          </Card>
-        </section>
-      </div>
+          <Button variant="link" size="sm" className="mt-4 text-muted-foreground hover:text-primary">
+            Mot de passe oublié ?
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }
